@@ -1,8 +1,11 @@
 import requests
+from datetime import datetime
 from bs4 import BeautifulSoup
 
 class NewsScraper():
     def __init__(self):
+        self.currentDate = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+        print(self.currentDate)
         self.g1_url = 'https://g1.globo.com/'
         self.uol_url = 'https://www.uol.com.br/'
         self.cnn_url = 'https://www.cnnbrasil.com.br/'
