@@ -1,21 +1,25 @@
 import requests
 from datetime import datetime
 from bs4 import BeautifulSoup
+import pandas as pd
 
 class NewsScraper():
     def __init__(self):
         self.currentDate = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-        print(self.currentDate)
         self.g1_url = 'https://g1.globo.com/'
         self.uol_url = 'https://www.uol.com.br/'
         self.cnn_url = 'https://www.cnnbrasil.com.br/ultimas-noticias/'
         self.terra_url = 'https://www.terra.com.br/noticias/'
 
-        data = self.scrape_g1(self.g1_url)
-        data2 = self.scrape_uol(self.uol_url)
-        data3 = self.scrape_terra(self.terra_url)
-        data4 = self.scrape_cnn(self.cnn_url)
-    
+        newsDataG1 = self.scrape_g1(self.g1_url)
+        newsDataUol = self.scrape_uol(self.uol_url)
+        newsDataTerra = self.scrape_terra(self.terra_url)
+        newsDataCNN = self.scrape_cnn(self.cnn_url)
+        # self.add_news_to_df(dataNewsG1, dataNewsUol, dataNewsTerra, dataNewsCnn)
+
+    def add_news_to_df(self, g1Data, uolData, terraData, cnnData):
+        pass
+         
     #method that performs scraping on the "g1" website
     def scrape_g1(self, url):
         data = []
@@ -36,6 +40,7 @@ class NewsScraper():
             # mechanism to only get the first 3 news
             if i>3:
                 print('G1 Scrapping sucessfully')
+                print(data)
                 return data
             # Within each news item, we go deeper and take an element from the body of the news, and from it we take the title and the link
             newsbody = news.find('a', attrs={'class': 'feed-post-link gui-color-primary gui-color-hover'})
@@ -43,8 +48,9 @@ class NewsScraper():
             title = newsbody.find('p', attrs={'elementtiming' : 'text-ssr'}).text
             link = newsbody['href']
 
-            #adding title and link in the list
-            data.append([title, link])
+            #adding title and link dict, in the data list, this variable data will be transformed into a dataframe
+            data.append({'Site': 'G1', 'Title': title, 'Link': link, 'Extraction Date': self.currentDate})
+
 
     #method that performs scraping on the "uol" website
     def scrape_uol(self, url):
@@ -69,6 +75,7 @@ class NewsScraper():
         for i, news in enumerate(newsList, start=1):
             if i>3:
                 print('Scrapping Uol sucessfully')
+                print(data)
                 return data
             title = news.find('h3', attrs={'class': 'title__element headlineSub__content__title'})
             link = news['href']
@@ -76,13 +83,14 @@ class NewsScraper():
             title = (title.text.strip())
 
 
-            #get the title and link and add it to the data variable
-            data.append([title, link])
+            # taking the title and link and adding it to the date variable, like a dictionary, also passing the name of the site and the date of extraction
+            data.append({'Site': 'UOL', 'Title': title, 'Link': link, 'Extraction Date': self.currentDate})
+
     
     #method that performs scraping on the "terra" website
     def scrape_terra(self, url):
         data = []
-        response = requests.get(self.terra_url)
+        response = requests.get(url)
         if response.status_code != 200:
             print('ERROR')
             return
@@ -102,15 +110,17 @@ class NewsScraper():
         #put an enumerate to get only the first 3 news items
         for i, news in enumerate(newsList, start=1):
             if i>3:
+
                 print('Terra scrapping sucessfully')
-                
+                print(data)
                 return data
             
             title = news.find('img')['alt']
             link = news.find('a', attrs={'class': 'card-news__url'})['href']
 
             #add the title and link of the news item to the date variable
-            data.append([title, link])
+            data.append({'Site': 'TERRA', 'Title': title, 'Link': link, 'Extraction Date': self.currentDate})
+
 
     #method that performs scraping on the "cnn" website
     def scrape_cnn(self, url):
@@ -139,9 +149,10 @@ class NewsScraper():
                 return data
 
             link = news.find('a', attrs={'class': 'home__list__tag'})['href']
-            titulo = news.find('h3', attrs={'class': 'news-item-header__title market__new__title'}).text
+            title = news.find('h3', attrs={'class': 'news-item-header__title market__new__title'}).text
 
-            data.append([titulo, link])
+            data.append({'Site': 'CNN', 'Title': title, 'Link': link, 'Extraction Date': self.currentDate})
+
     
         
     
