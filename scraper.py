@@ -22,6 +22,9 @@ class NewsScraper():
         # which will be the final dataframe with all the data tabulated into columns
         self.dfAllNews = self.concat_dataframes(newsDataG1, newsDataUol, newsDataTerra, newsDataCNN)
 
+        #export to xslx
+        self.dfAllNews.to_excel(f'News.xlsx')
+
 
     def concat_dataframes(self, g1Data, uolData, terraData, cnnData):
         frames = [g1Data, uolData, terraData, cnnData]
