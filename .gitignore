@@ -160,3 +160,5 @@ cython_debug/
 #.idea/
 ideias.txt
 recipients.txt
+outputExcel/news.xlsx
+outputExcel/news.xlsx
