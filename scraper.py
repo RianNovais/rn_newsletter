@@ -1,4 +1,5 @@
 import requests
+from pathlib import Path
 from datetime import datetime
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -6,6 +7,7 @@ import pandas as pd
 
 class NewsScraper():
     def __init__(self):
+        self.EXCELPATH = Path.cwd() / 'outputExcel' / 'news.xlsx'
         self.currentDate = datetime.now().strftime('%d/%m/%Y %H:%M:%S')
         self.g1_url = 'https://g1.globo.com/'
         self.uol_url = 'https://www.uol.com.br/'
@@ -22,10 +24,14 @@ class NewsScraper():
         # which will be the final dataframe with all the data tabulated into columns
         self.dfAllNews = self.concat_dataframes(newsDataG1, newsDataUol, newsDataTerra, newsDataCNN)
 
-        #export to xslx
-        self.dfAllNews.to_excel(f'News.xlsx')
+        #export to xslx, in the respective path into the dir "OutputExcel"
+        self.export_data_to_excel(self.EXCELPATH)
 
 
+    def export_data_to_excel(self, path):
+        print('.XLSX file export sucessfully')
+        self.dfAllNews.to_excel(path)
+        
     def concat_dataframes(self, g1Data, uolData, terraData, cnnData):
         frames = [g1Data, uolData, terraData, cnnData]
         allNewsDF = pd.concat(frames, ignore_index=True)

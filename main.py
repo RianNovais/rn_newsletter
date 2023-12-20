@@ -3,4 +3,4 @@ from mail.mail import Email
 
 if __name__ == "__main__":
     ns = NewsScraper()
-    # e = Email()
+    e = Email(ns.EXCELPATH)
