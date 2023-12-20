@@ -32,8 +32,9 @@ class Email():
     
     def send_mail(self, file, recipients):
         subject = f'Webscrapping {self.currentDate}'
+        content = f'Noticias do dia, extraidas automaticamente dos sites G1, UOL, CNN, TERRA'
         try:
-            self.conn.send(to=recipients, subject=subject, attachments=file)
+            self.conn.send(to=recipients, subject=subject, contents=content, attachments=file)
             print('Email send sucessfully')
         except:
             print('ERROR: UNABLE TO SEND EMAIL')
