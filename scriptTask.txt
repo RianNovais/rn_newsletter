@@ -1,0 +1,2 @@
+REM Comando para executar o script Python, Substitua pelo caminho do arquivo main.py 
+python [MAIN.PY PATH]
