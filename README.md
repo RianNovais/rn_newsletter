@@ -27,4 +27,12 @@
     1. an object of the NewsScraper class is instantiated, which comes from the scraper.py file, this class in its __init__ function, executes some methods, which go to each site and extract these news items, place them in a dictionary list format and transform them into a pandas dataframe. Later, after all the news has been taken, and a dataframe has been created for each respective site, a method is executed that joins these dataframes into a single dataframe that will contain all the news, from this dataframe a method is executed that creates an .xlsx file from this dataframe.
     2. After passing the NewsScraper class, an object of the Email class is instantiated, passing the dataframe of the previous class, and the path of the .xlsx file. In the __init__ method of this class, an SMTP connection is made using yagmail, with the email address that we are going to send our newsletter to, this connection is made using configuration parameters that come from the .env file. Then a method is executed to read the recipients in the recipients.txt file, then another method is executed that creates a string with all our news, and replaces it in our html template, "content.html", then in the send_email method our email is sent, passing the recipients, the html content, and our excel file.
 
+#### Como automatizar a execução no Windows (How to automatize execution in Windows)
+
+    1. Coloque o caminho do seu arquivo do arquivo main.py no arquivo scriptTask.txt e mude a extensão para .bat
+    1. Put your file path from main.py file into scriptTask.txt file and change the extension to .bat
+
+    2. Vá até o agendador de tarefas e configure a execução diariamente passando o arquivo .bat como script
+    2. Go to the task scheduler and configure it to run daily by passing the .bat file as a script
+
 > Python Version: 3.11
