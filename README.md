@@ -1,6 +1,6 @@
 # rn_newsletter
 ![Logo](https://www.xicarademarketing.com/blog/newsletter-o-que-e/image2.png)
-#### Aplicação com objetivo de ser uma newsletter enviando noticias via email, extraidas de sites automaticamente, e também informações completas das noticias via Excel.
+#### Aplicação com objetivo de ser uma newsletter enviando noticias via email, extraídas de sites automaticamente, e também informações completas das noticias via Excel.
 
 #### Application intended to be a newsletter sending news via email, automatically extracted from websites, and also complete information on the news via Excel.
 
