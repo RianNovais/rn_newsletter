@@ -25,6 +25,7 @@ class NewsScraper():
         self.dfAllNews = self.concat_dataframes(newsDataG1, newsDataUol, newsDataTerra, newsDataCNN)
 
         #export to xslx, in the respective path into the dir "OutputExcel"
+        
         self.export_data_to_excel(self.EXCELPATH)
 
 
